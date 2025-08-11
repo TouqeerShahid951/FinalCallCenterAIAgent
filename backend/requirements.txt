@@ -1,0 +1,17 @@
+fastapi==0.110.0
+uvicorn[standard]==0.29.0
+websockets==11.0
+# assemblyai  # Commented out - switching back to Whisper
+faster-whisper  # Added for Whisper ASR
+pydantic==2.6.4
+numpy==1.26.4
+scipy==1.11.4
+torch
+silero-vad
+vosk==0.3.45
+chromadb==0.4.24
+sentence-transformers==2.5.1
+python-multipart==0.0.9
+requests==2.31.0
+python-dotenv==1.0.0
+openai==1.12.0

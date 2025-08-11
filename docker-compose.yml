@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: voice-agent-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./policies:/app/policies
+    depends_on:
+      - chroma
+
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    container_name: chroma-db
+    restart: unless-stopped
+    volumes:
+      - ./chroma:/chroma
+    ports:
+      - "8001:8000"
+
+  # Optional local models
+  # whispercpp:
+  #   image: semanticsegmentation/whispercpp:latest
+  #   ports:
+  #     - "9000:9000"
+  # piper:
+  #   image: rhasspy/piper:latest
+  #   volumes:
+  #     - ./models:/piper/models
+  #   ports:
+  #     - "10200:10200"

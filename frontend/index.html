@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Voice Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Background with animated gradient -->
+    <div class="background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header glass-card">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h1>Voice Assistant</h1>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot" id="connectionStatus"></div>
+                    <span id="statusText">Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Call Interface Section -->
+            <section class="call-section">
+                <div class="call-interface glass-card">
+                    <!-- Voice Visualizer -->
+                    <div class="voice-visualizer">
+                        <div class="wave-container">
+                            <div class="wave" id="wave1"></div>
+                            <div class="wave" id="wave2"></div>
+                            <div class="wave" id="wave3"></div>
+                            <div class="wave" id="wave4"></div>
+                            <div class="wave" id="wave5"></div>
+                        </div>
+                        <div class="assistant-avatar">
+                            <div class="avatar-ring"></div>
+                            <div class="avatar-core">
+                                <i class="fas fa-microphone-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Call Controls -->
+                    <div class="call-controls">
+                        <button class="control-btn secondary" id="muteBtn">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        
+                        <button class="control-btn primary" id="callBtn">
+                            <i class="fas fa-phone"></i>
+                            <span class="btn-text">Start Call</span>
+                        </button>
+                        
+                        <button class="control-btn secondary" id="settingsBtn">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        
+                        <!-- Audio Level Indicator -->
+                        <div class="audio-level-container">
+                            <div class="audio-level-label">Mic Level:</div>
+                            <div class="audio-level-bar">
+                                <div id="audio-level" class="audio-level-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Current Status -->
+                    <div class="call-status">
+                        <div class="status-text" id="callStatusText">Ready to start</div>
+                        <div class="call-timer" id="callTimer" style="display: none;">00:00</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transcription Section -->
+            <section class="transcription-section">
+                <div class="transcription-panel glass-card">
+                    <div class="panel-header">
+                        <h2>
+                            <i class="fas fa-comments"></i>
+                            Conversation
+                        </h2>
+                        <div class="panel-actions">
+                            <button class="action-btn" id="clearBtn" title="Clear conversation">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button class="action-btn" id="exportBtn" title="Export conversation">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="transcription-content" id="transcriptionContent">
+                        <div class="welcome-message">
+                            <div class="message-bubble assistant">
+                                <div class="message-avatar">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="message-content">
+                                    <div class="message-text">
+                                        Hello! I'm your AI assistant. I can help you with company policies, returns, shipping, and more. How can I assist you today?
+                                    </div>
+                                    <div class="message-time">Ready</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Transcription Display -->
+                    <div class="live-transcription" id="liveTranscription" style="display: none;">
+                        <div class="live-indicator">
+                            <div class="pulse-dot"></div>
+                            <span>Listening...</span>
+                        </div>
+                        <div class="live-text" id="liveText"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Settings Modal -->
+        <div class="modal-overlay" id="settingsModal" style="display: none;">
+            <div class="modal glass-card">
+                <div class="modal-header">
+                    <h3>Settings</h3>
+                    <button class="close-btn" id="closeSettings">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-content">
+                    <div class="setting-group">
+                        <label>Voice Sensitivity</label>
+                        <input type="range" id="sensitivityRange" min="0" max="100" value="50" class="slider">
+                    </div>
+                    <div class="setting-group">
+                        <label>Microphone Gain</label>
+                        <input type="range" id="gainRange" min="1" max="10" value="1.5" step="0.5" class="slider">
+                        <span id="gainValue">1.5x</span>
+                    </div>
+                    <div class="setting-group">
+                        <label>Auto-scroll Transcription</label>
+                        <label class="toggle">
+                            <input type="checkbox" id="autoScroll" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-group">
+                        <label>Sound Effects</label>
+                        <label class="toggle">
+                            <input type="checkbox" id="soundEffects" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio element for playing responses -->
+    <audio id="responseAudio" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
